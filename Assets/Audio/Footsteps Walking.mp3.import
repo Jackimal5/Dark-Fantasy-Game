@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ck365yfiee6mb"
+path="res://.godot/imported/Footsteps Walking.mp3-fd7689005ea488d0fed3cfd0f956b1d0.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Footsteps Walking.mp3"
+dest_files=["res://.godot/imported/Footsteps Walking.mp3-fd7689005ea488d0fed3cfd0f956b1d0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

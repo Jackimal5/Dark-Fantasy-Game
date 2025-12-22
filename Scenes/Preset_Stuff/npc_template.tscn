@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cn4ska7xywsuh"]
+
+[ext_resource type="Shader" uid="uid://b3s5eypue10i8" path="res://Scripts/Shaders/Toon_Shading.gdshader" id="1_ln5al"]
+
+[sub_resource type="GDScript" id="GDScript_2vqi4"]
+script/source = "extends RigidBody3D
+
+@export var gravity = 9.8
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+	#Fall
+	#global_position.y -= gravity * delta
+"
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f5tsa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvejt"]
+render_priority = 0
+shader = ExtResource("1_ln5al")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 3.83
+shader_parameter/constant_width = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x8fjb"]
+next_pass = SubResource("ShaderMaterial_yvejt")
+albedo_color = Color(0.239697, 0.729858, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2vqi4"]
+
+[node name="NPC_1" type="RigidBody3D"]
+script = SubResource("GDScript_2vqi4")
+
+[node name="NPC_Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000561476, 1.60426, -6.38921)
+mesh = SubResource("CapsuleMesh_f5tsa")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_x8fjb")
+
+[node name="NPC_Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60146, -6.38944)
+shape = SubResource("CapsuleShape3D_2vqi4")

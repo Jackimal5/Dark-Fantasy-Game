@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://txlml75bby3c"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_g8ua4"]
+[ext_resource type="AudioStream" uid="uid://b6hm5uyy8o1wl" path="res://Assets/Footstep.mp3" id="2_tpuda"]
+[ext_resource type="Script" path="res://Scenes/Your footsteps.gd" id="3_wkglc"]
+[ext_resource type="PackedScene" uid="uid://cjloa0b6fnii2" path="res://Scenes/ui.tscn" id="4_xtk1p"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lbdua"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cauuo"]
+height = 1.2
+
+[node name="player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00135994, -0.246921, 0.0109329)
+script = ExtResource("1_g8ua4")
+
+[node name="Standing_Collision_Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24483, 0)
+shape = SubResource("CapsuleShape3D_lbdua")
+
+[node name="Crouching_Collision_Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.848933, 0)
+shape = SubResource("CapsuleShape3D_cauuo")
+
+[node name="RayCast" type="RayCast3D" parent="."]
+transform = Transform3D(-1, 6.46145e-05, -2.55331e-05, -6.4613e-05, -1, -5.95361e-06, -2.55368e-05, -5.93757e-06, 1, 0, 0.254831, 0)
+target_position = Vector3(0, -2, 0)
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Your footsteps" type="AudioStreamPlayer3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.367837, 0)
+stream = ExtResource("2_tpuda")
+volume_db = 2.0
+script = ExtResource("3_wkglc")
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+
+[node name="UI" parent="head/Camera3D" instance=ExtResource("4_xtk1p")]

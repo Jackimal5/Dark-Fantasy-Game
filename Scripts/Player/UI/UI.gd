@@ -1,0 +1,106 @@
+extends CanvasLayer
+
+#Declaring Nodes
+@onready var health = $Health
+@onready var player = $"../../.."
+@onready var interaction = $Interaction
+@onready var you_need_help = $"../../../../Stage/You need help"
+@onready var interacting_npc = $Interacting_NPC
+@onready var interacting_npc_text = $Interacting_NPC/Interacting_NPC_Text
+
+@onready var scribe = $"../../../Scribe"
+
+
+#Data:
+#Health Varible 
+var hp = 100
+
+#Shows press "E" to interact
+var able_interactions = false
+
+#Checks for if you are currently interacting
+var interacting = false
+
+# Called every frame
+func _process(_delta):
+	able_to_interact_interactions()
+	choice()
+	interacting_check()
+	interaction_ui_check()
+	interacting_npc_check()
+	health_process()
+
+#Changes health 
+func lose_hp(health_lost):
+	hp =- health_lost
+func gain_hp(health_gained):
+	hp =+ health_gained
+func set_hp(health_set):
+	hp = health_set
+
+#Process for Health
+func health_process():
+	health.value = hp
+	if hp <= 0:
+		hp = 0
+		you_need_help.respawn()
+	if hp > 100:
+		hp = 100
+
+#Interaction display
+func interaction_ui_check():
+	if able_interactions:
+		interaction.show()
+	else:
+		interaction.hide()
+
+#Interacts with NPC
+func interacting_check():
+	if Input.is_action_just_pressed("interact"):
+		if interacting_text() != "EXIT":
+			interacting_npc_text.text = interacting_text()
+			interacting = true
+		else: 
+			interacting = false
+
+#Checks if interacting is avaliable
+func able_to_interact_interactions():
+	if player.ray_cast_interactions.is_colliding():
+		able_interactions = true
+	else: 
+		able_interactions = false
+
+#Checks if you choose to interact with NPC and changes the UI occordingly 
+func interacting_npc_check():
+	if interacting and able_interactions:
+		interacting_npc.show()
+	else:
+		interacting_npc.hide()
+
+#The spagheti that allows you to be shown interacting text
+func interacting_text():
+	return str(scribe.npc_dialogue(player.ray_cast_interactions.get_collider().id))
+
+func choice():
+	if interacting and input_choice():
+		if Input.is_action_just_pressed("Choice 1"):
+			interacting_npc_text.text = choice_text(1)
+		elif Input.is_action_just_pressed("Choice 2"):
+			interacting_npc_text.text = choice_text(2)
+		elif Input.is_action_just_pressed("Choice 3"):
+			interacting_npc_text.text = choice_text(3)
+		elif Input.is_action_just_pressed("Choice 4"):
+			interacting_npc_text.text = choice_text(4)
+		else:
+			interacting_npc_text.text = "Error 2 choice not indicated correctly"
+
+#The spagheti that allows you to be shown new text
+func choice_text(choice_id):
+	return str(scribe.npc_response((player.ray_cast_interactions.get_collider().id), choice_id, player.ray_cast_interactions.get_collider().id))
+
+#Checks if the input is a choice or if its not
+func input_choice():
+	if Input.is_action_just_pressed("Choice 1") or Input.is_action_just_pressed("Choice 2") or Input.is_action_just_pressed("Choice 3") or Input.is_action_just_pressed("Choice 4"):
+		return true
+	else: 
+		return false

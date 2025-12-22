@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://c44t1b6ommcbq"]
+
+[ext_resource type="PackedScene" uid="uid://cjloa0b6fnii2" path="res://Scenes/ui.tscn" id="1_eqoi5"]
+[ext_resource type="Script" path="res://Scenes/player_rigid_body.gd" id="1_v0cmp"]
+[ext_resource type="AudioStream" uid="uid://b6hm5uyy8o1wl" path="res://Assets/Footstep.mp3" id="1_y3xnk"]
+[ext_resource type="Script" path="res://Scenes/Your footsteps.gd" id="2_2yqrk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x3qxw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bssy5"]
+height = 1.2
+
+[node name="Player_Rigid" type="RigidBody3D"]
+script = ExtResource("1_v0cmp")
+footstep_interval = null
+walk_speed = null
+sprinting_speed = null
+jump_velocity = null
+wall_jumping_time = null
+gravity = null
+friction = null
+running_stop_time = null
+crouching_depth = null
+crouching_speed = null
+mouse_sens = null
+lerp_speed = null
+
+[node name="Standing_Collision_Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_x3qxw")
+
+[node name="Crouching_Collision_Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("CapsuleShape3D_bssy5")
+
+[node name="RayCast" type="RayCast3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, -2, 0)
+
+[node name="RayCastFloor" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.1, 0)
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Your footsteps" type="AudioStreamPlayer3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.367837, 0)
+stream = ExtResource("1_y3xnk")
+volume_db = 2.0
+script = ExtResource("2_2yqrk")
+
+[node name="Camera" type="Camera3D" parent="Head"]
+
+[node name="UI" parent="Head" instance=ExtResource("1_eqoi5")]
+
+[node name="RayCastLeft" type="RayCast3D" parent="Head"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -0.6, 0)
+
+[node name="RayCastRight" type="RayCast3D" parent="Head"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -0.6, 0)
