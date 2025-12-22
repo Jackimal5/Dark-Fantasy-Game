@@ -104,3 +104,7 @@ func input_choice():
 		return true
 	else: 
 		return false
+
+#Updates the NPC to update their ID
+func update_npc_id(new_id):
+	player.ray_cast_interactions.get_collider().id = new_id

@@ -16,7 +16,7 @@ var resulting_dialogue_data = {
 	11.2: 0,
 }
 
-@onready var ui = $"."
+@onready var ui = $"../head/FirstPersonCamera3D/UI"
 
 func is_id_update_needed(id, choice, npc):
 	if id_update_needed:
@@ -32,7 +32,7 @@ func npc_dialogue(id):
 
 func npc_response(id, choice, npc):
 	if resulting_dialogue_data != null:
+		ui.update_npc_id(11)
 		return dialogue_data[resulting_dialogue_data[id + (0.1 * choice)]]
-		npc.id = 11
 	else: 
 		return "Error 1: Num not found"
