@@ -32,7 +32,7 @@ func npc_dialogue(id):
 
 func npc_response(id, choice, npc):
 	if resulting_dialogue_data != null:
-		ui.update_npc_id(11)
+		ui.update_npc_id(resulting_dialogue_data[id + (0.1 * choice)])
 		return dialogue_data[resulting_dialogue_data[id + (0.1 * choice)]]
 	else: 
 		return "Error 1: Num not found"
