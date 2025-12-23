@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bwfvxotp2spi4"]
+[gd_scene load_steps=11 format=3 uid="uid://bwfvxotp2spi4"]
 
 [ext_resource type="Texture2D" uid="uid://15je4h1mi26n" path="res://Assets/Skybox/Sky_Texture.hdr" id="1_2vqi4"]
 [ext_resource type="AudioStream" uid="uid://crg0lsr8mbtrk" path="res://Assets/Audio/forest-ambience-296528.mp3" id="2_yvejt"]
 [ext_resource type="Material" uid="uid://dyb6bmv74we2o" path="res://Assets/Materials/world.tres" id="3_x8fjb"]
 [ext_resource type="Script" uid="uid://bp21ylo7slqrh" path="res://Scripts/Scene_Scripts/You need help.gd" id="5_0dr8g"]
-[ext_resource type="Shader" uid="uid://b3s5eypue10i8" path="res://Scripts/Shaders/Toon_Shading.gdshader" id="6_2vqi4"]
 [ext_resource type="PackedScene" uid="uid://txlml75bby3c" path="res://Scenes/Preset_Stuff/player.tscn" id="6_442oq"]
-[ext_resource type="Script" uid="uid://b1gju8rlkq216" path="res://Scripts/Scene_Scripts/npc.gd" id="6_yvejt"]
+[ext_resource type="PackedScene" uid="uid://c7wwpayrel6yx" path="res://Scenes/Preset_Stuff/npc_template.tscn" id="8_x8fjb"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_eyyqp"]
 panorama = ExtResource("1_2vqi4")
@@ -23,21 +22,6 @@ glow_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_03lng"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_f5tsa"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvejt"]
-render_priority = 0
-shader = ExtResource("6_2vqi4")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 3.83
-shader_parameter/constant_width = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x8fjb"]
-next_pass = SubResource("ShaderMaterial_yvejt")
-albedo_color = Color(0.239697, 0.729858, 1, 1)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2vqi4"]
-
 [node name="World" type="Node3D"]
 
 [node name="Enviorment" type="Node3D" parent="."]
@@ -48,13 +32,6 @@ environment = SubResource("Environment_c8t22")
 [node name="Light_3d" type="DirectionalLight3D" parent="Enviorment"]
 transform = Transform3D(0.708751, -0.637011, 0.303133, -0.33362, 0.0759536, 0.939643, -0.621587, -0.767104, -0.158687, 0, 0, 0)
 shadow_enabled = true
-
-[node name="Audio" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.36349, 0)
-stream = ExtResource("2_yvejt")
-max_db = 0.0
-autoplay = true
-max_distance = 100.0
 
 [node name="Stage" type="Node3D" parent="."]
 
@@ -83,23 +60,17 @@ script = ExtResource("5_0dr8g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0291762, -0.0238829, 0.00687313)
 shape = SubResource("WorldBoundaryShape3D_03lng")
 
+[node name="Audio" type="AudioStreamPlayer3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.36349, 0)
+stream = ExtResource("2_yvejt")
+max_db = 0.0
+autoplay = true
+max_distance = 100.0
+
 [node name="player" parent="." instance=ExtResource("6_442oq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00445192, 0.0213213, 0.0224486)
 
-[node name="NPC_Template" type="RigidBody3D" parent="."]
-collision_layer = 17
-collision_mask = 17
-script = ExtResource("6_yvejt")
-id = 10
-
-[node name="NPC_Mesh" type="MeshInstance3D" parent="NPC_Template"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000561476, 1.60426, -6.38921)
-mesh = SubResource("CapsuleMesh_f5tsa")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_x8fjb")
-
-[node name="NPC_Collision" type="CollisionShape3D" parent="NPC_Template"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60146, -6.38944)
-shape = SubResource("CapsuleShape3D_2vqi4")
+[node name="NPC_1" parent="." instance=ExtResource("8_x8fjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.688746, 0.784881, -5.81585)
 
 [connection signal="body_entered" from="Stage/You need help" to="Stage/You need help" method="_on_body_entered"]
