@@ -15,6 +15,7 @@ extends CharacterBody3D
 @onready var ray_cast_left_bottum = $RayCastLeftBottum
 @onready var ray_cast_right_bottum = $RayCastRightBottum
 @onready var ray_cast_interactions = $head/FirstPersonCamera3D/RayCastInteractions
+@onready var ray_cast_attack = $head/FirstPersonCamera3D/RayCastAttack
 
 #Sounds
 @onready var your_footsteps = $"Your footsteps"
@@ -99,6 +100,8 @@ func _physics_process(delta):
 		#Standing Script
 		stand(delta)
 	
+	#Checks if the player is attacking and attacks if so
+	is_attacking()
 	#If sprinting
 	is_sprinting()
 	#If walking
@@ -115,6 +118,7 @@ func _physics_process(delta):
 	is_wall_jump(delta)
 	#Makes all things move
 	move_and_slide()
+	
 
 #Rotates Head
 func head_rotation(event):
@@ -230,15 +234,21 @@ func check_wall_touching():
 	else:
 		wall_touching = false
 
+#Checks if player is moving
 func moving():
 	if Input.is_action_pressed("forward") || Input.is_action_pressed("backward") || Input.is_action_pressed("left") || Input.is_action_pressed("right"):
 		return true
 	else: 
 		return false
 
+#Makes the player stand
 func stand(delta):
 	crouching = false
 	standing_collision_shape.disabled = false 
 	crouching_collision_shape.disabled = true
 	#Change Head Position
 	head.position.y = lerp(head.position.y, 1.8, delta * lerp_speed)
+
+func is_attacking():
+	if Input.is_action_just_pressed("attack") and ray_cast_attack.is_colliding():
+		ray_cast_attack.get_collider().damage_taken(12)

@@ -57,7 +57,7 @@ func interaction_ui_check():
 #Interacts with NPC
 func interacting_check():
 	if Input.is_action_just_pressed("interact"):
-		if interacting_text() != "EXIT":
+		if interacting_text() != "EXIT" and able_interactions == true:
 			interacting_npc_text.text = interacting_text()
 			interacting = true
 		else: 
@@ -79,7 +79,8 @@ func interacting_npc_check():
 
 #The spagheti that allows you to be shown interacting text
 func interacting_text():
-	return str(scribe.npc_dialogue(player.ray_cast_interactions.get_collider().id))
+	if able_interactions == true:
+		return str(scribe.npc_dialogue(player.ray_cast_interactions.get_collider().id))
 
 func choice():
 	if interacting and input_choice():
@@ -96,7 +97,7 @@ func choice():
 
 #The spagheti that allows you to be shown new text
 func choice_text(choice_id):
-	return str(scribe.npc_response((player.ray_cast_interactions.get_collider().id), choice_id, player.ray_cast_interactions.get_collider().id))
+	return str(scribe.npc_response((player.ray_cast_interactions.get_collider().id), choice_id))
 
 #Checks if the input is a choice or if its not
 func input_choice():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bwfvxotp2spi4"]
+[gd_scene load_steps=16 format=3 uid="uid://bwfvxotp2spi4"]
 
 [ext_resource type="Texture2D" uid="uid://15je4h1mi26n" path="res://Assets/Skybox/Sky_Texture.hdr" id="1_2vqi4"]
 [ext_resource type="AudioStream" uid="uid://crg0lsr8mbtrk" path="res://Assets/Audio/forest-ambience-296528.mp3" id="2_yvejt"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://bp21ylo7slqrh" path="res://Scripts/Scene_Scripts/You need help.gd" id="5_0dr8g"]
 [ext_resource type="Shader" uid="uid://b3s5eypue10i8" path="res://Scripts/Shaders/Toon_Shading.gdshader" id="6_2vqi4"]
 [ext_resource type="PackedScene" uid="uid://txlml75bby3c" path="res://Scenes/Preset_Stuff/player.tscn" id="6_442oq"]
-[ext_resource type="Script" uid="uid://dpamh3af4kfx8" path="res://Scenes/Main_Scenes/dummy.gd" id="7_x8fjb"]
 [ext_resource type="PackedScene" uid="uid://c7wwpayrel6yx" path="res://Scenes/Preset_Stuff/npc_template.tscn" id="8_x8fjb"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_eyyqp"]
@@ -38,22 +37,6 @@ next_pass = SubResource("ShaderMaterial_yvejt")
 albedo_color = Color(0.708142, 0, 0.138469, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j71bo"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x8fjb"]
-direction = Vector3(0, 1, 0)
-spread = 90.0
-initial_velocity_min = 12.0
-initial_velocity_max = 14.0
-gravity = Vector3(0, 9.8, 0)
-color = Color(1, 1, 1, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j71bo"]
-albedo_color = Color(0.83292, 0.753582, 0.757025, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_0dr8g"]
-material = SubResource("StandardMaterial3D_j71bo")
-radius = 0.2
-height = 0.4
 
 [node name="World" type="Node3D"]
 
@@ -110,7 +93,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.688746, 0.784881, -5.81585)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.98376, 1.27617, 6.12106)
 collision_layer = 5
 collision_mask = 5
-script = ExtResource("7_x8fjb")
 
 [node name="Dummy_Mesh" type="MeshInstance3D" parent="Dummy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, 0, 0)
@@ -120,15 +102,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_x8fjb")
 
 [node name="Dummy_Collider" type="CollisionShape3D" parent="Dummy"]
 shape = SubResource("CapsuleShape3D_j71bo")
-
-[node name="Dummy_Hit_Particles" type="GPUParticles3D" parent="Dummy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00205088, 0.00956416, -0.00194883)
-emitting = false
-amount = 20
-lifetime = 0.15
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_x8fjb")
-draw_pass_1 = SubResource("SphereMesh_0dr8g")
 
 [connection signal="body_entered" from="Stage/You need help" to="Stage/You need help" method="_on_body_entered"]

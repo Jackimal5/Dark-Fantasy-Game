@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f5tsa"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvejt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3yvl5"]
 render_priority = 0
 shader = ExtResource("1_ln5al")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
@@ -13,7 +13,7 @@ shader_parameter/outline_width = 3.83
 shader_parameter/constant_width = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x8fjb"]
-next_pass = SubResource("ShaderMaterial_yvejt")
+next_pass = SubResource("ShaderMaterial_3yvl5")
 albedo_color = Color(0.239697, 0.729858, 1, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2vqi4"]
