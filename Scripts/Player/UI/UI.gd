@@ -65,7 +65,7 @@ func interacting_check():
 
 #Checks if interacting is avaliable
 func able_to_interact_interactions():
-	if player.ray_cast_interactions.is_colliding():
+	if player.ray_cast_interactions.is_colliding() and interacting_text() != "EXIT":
 		able_interactions = true
 	else: 
 		able_interactions = false
