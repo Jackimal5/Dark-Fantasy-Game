@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bwfvxotp2spi4"]
+[gd_scene load_steps=21 format=3 uid="uid://bwfvxotp2spi4"]
 
 [ext_resource type="Texture2D" uid="uid://15je4h1mi26n" path="res://Assets/Skybox/Sky_Texture.hdr" id="1_2vqi4"]
 [ext_resource type="AudioStream" uid="uid://crg0lsr8mbtrk" path="res://Assets/Audio/forest-ambience-296528.mp3" id="2_yvejt"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://txlml75bby3c" path="res://Scenes/Preset_Stuff/player.tscn" id="6_442oq"]
 [ext_resource type="Script" uid="uid://dpamh3af4kfx8" path="res://Scenes/Main_Scenes/dummy.gd" id="7_x8fjb"]
 [ext_resource type="PackedScene" uid="uid://c7wwpayrel6yx" path="res://Scenes/Preset_Stuff/npc_template.tscn" id="8_x8fjb"]
+[ext_resource type="AudioStream" uid="uid://bnf3wcbvnqf1w" path="res://Assets/Audio/Enemy_Hit.mp3" id="9_j71bo"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_eyyqp"]
 panorama = ExtResource("1_2vqi4")
@@ -130,5 +131,8 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_x8fjb")
 draw_pass_1 = SubResource("SphereMesh_0dr8g")
+
+[node name="Dummy_Hit_Sound" type="AudioStreamPlayer3D" parent="Dummy"]
+stream = ExtResource("9_j71bo")
 
 [connection signal="body_entered" from="Stage/You need help" to="Stage/You need help" method="_on_body_entered"]
