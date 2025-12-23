@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bwfvxotp2spi4"]
+[gd_scene load_steps=18 format=3 uid="uid://bwfvxotp2spi4"]
 
 [ext_resource type="Texture2D" uid="uid://15je4h1mi26n" path="res://Assets/Skybox/Sky_Texture.hdr" id="1_2vqi4"]
 [ext_resource type="AudioStream" uid="uid://crg0lsr8mbtrk" path="res://Assets/Audio/forest-ambience-296528.mp3" id="2_yvejt"]
@@ -39,22 +39,6 @@ next_pass = SubResource("ShaderMaterial_yvejt")
 albedo_color = Color(0.708142, 0, 0.138469, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j71bo"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x8fjb"]
-direction = Vector3(0, 1, 0)
-spread = 90.0
-initial_velocity_min = 8.0
-initial_velocity_max = 12.0
-gravity = Vector3(0, 9.8, 0)
-color = Color(1, 1, 1, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j71bo"]
-albedo_color = Color(0.911949, 0.724677, 0.692005, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_0dr8g"]
-material = SubResource("StandardMaterial3D_j71bo")
-radius = 0.1
-height = 0.2
 
 [node name="World" type="Node3D"]
 
@@ -121,16 +105,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_x8fjb")
 
 [node name="Dummy_Collider" type="CollisionShape3D" parent="Dummy"]
 shape = SubResource("CapsuleShape3D_j71bo")
-
-[node name="Dummy_Hit_Particles" type="GPUParticles3D" parent="Dummy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00205088, 0.00956416, -0.00194883)
-emitting = false
-amount = 20
-lifetime = 0.15
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_x8fjb")
-draw_pass_1 = SubResource("SphereMesh_0dr8g")
 
 [node name="Dummy_Hit_Sound" type="AudioStreamPlayer3D" parent="Dummy"]
 stream = ExtResource("9_j71bo")
