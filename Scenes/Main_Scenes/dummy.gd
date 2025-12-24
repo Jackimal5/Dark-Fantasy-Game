@@ -16,10 +16,9 @@ func _physics_process(delta):
 		velocity.z = (self.position.z - player_position.z) * knockback_multiplier
 		velocity.x = (self.position.x - player_position.x) * knockback_multiplier
 		knockback_timer -= delta 
-	else: 
-		velocity.x = lerp(velocity.x, 0.0, lerp_speed)
-		velocity.z = lerp(velocity.z, 0.0, lerp_speed)
-	#velocity = lerp(velocity, Vector3.ZERO, lerp_speed)
+	
+	velocity.x = lerp(velocity.x, 0.0, lerp_speed)
+	velocity.z = lerp(velocity.z, 0.0, lerp_speed)
 	
 	move_and_slide()
 
