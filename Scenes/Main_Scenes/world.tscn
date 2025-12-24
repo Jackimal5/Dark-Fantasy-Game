@@ -91,7 +91,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00445192, 0.0213213, 0.0224
 [node name="NPC_1" parent="." instance=ExtResource("8_x8fjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.688746, 0.784881, -5.81585)
 
-[node name="Dummy" type="RigidBody3D" parent="."]
+[node name="Dummy" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.98376, 1.27617, 6.12106)
 collision_layer = 5
 collision_mask = 5

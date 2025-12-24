@@ -251,4 +251,4 @@ func stand(delta):
 
 func is_attacking():
 	if Input.is_action_just_pressed("attack") and ray_cast_attack.is_colliding():
-		ray_cast_attack.get_collider().damage_taken(12)
+		ray_cast_attack.get_collider().damage_taken(12, global_position)
