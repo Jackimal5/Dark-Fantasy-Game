@@ -69,6 +69,20 @@ use_collision = true
 size = Vector3(3.23779, 8.47412, 20)
 material = ExtResource("3_x8fjb")
 
+[node name="Floor3" type="CSGBox3D" parent="Stage/Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8701, -0.715119, 4.75493)
+material_override = ExtResource("3_x8fjb")
+use_collision = true
+size = Vector3(23.6157, 1, 5.00079)
+material = ExtResource("3_x8fjb")
+
+[node name="Floor4" type="CSGBox3D" parent="Stage/Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.7603, -0.71512, 4.83668)
+material_override = ExtResource("3_x8fjb")
+use_collision = true
+size = Vector3(29.9952, 1, 25.1125)
+material = ExtResource("3_x8fjb")
+
 [node name="You need help" type="Area3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.4555, 0)
 collision_layer = 0
@@ -92,7 +106,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00445192, 0.0213213, 0.0224
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.688746, 0.784881, -5.81585)
 
 [node name="Dummy" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.98376, 1.27617, 6.12106)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.4663, 1.27617, 4.70854)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("7_x8fjb")
