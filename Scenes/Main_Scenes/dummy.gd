@@ -1,11 +1,12 @@
 extends CharacterBody3D
 
-var health = 100
+@export var health = 100
 var knockback = false
 var player_position = Vector3.ZERO
 var knockback_timer = 0
-var knockback_multiplier = 40
-var lerp_speed = 0.2
+@export var knockback_multiplier = 10
+@export var lerp_speed = 0.15
+@export var gravity = 9.8
 
 #Declare Nodes
 @onready var dummy_hit_sound = $Dummy_Hit_Sound
@@ -16,6 +17,9 @@ func _physics_process(delta):
 		velocity.z = (self.position.z - player_position.z) * knockback_multiplier
 		velocity.x = (self.position.x - player_position.x) * knockback_multiplier
 		knockback_timer -= delta 
+	
+	if not is_on_floor():
+		velocity.y -= gravity * delta
 	
 	velocity.x = lerp(velocity.x, 0.0, lerp_speed)
 	velocity.z = lerp(velocity.z, 0.0, lerp_speed)
