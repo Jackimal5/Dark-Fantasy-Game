@@ -8,6 +8,9 @@ var knockback_timer = 0
 @export var lerp_speed = 0.15
 @export var gravity = 9.8
 
+#Identity
+var identity = "Dummy"
+
 #Declare Nodes
 @onready var dummy_hit_sound = $Dummy_Hit_Sound
 @onready var player = $"../player"

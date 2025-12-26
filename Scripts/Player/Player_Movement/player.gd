@@ -55,6 +55,9 @@ var footstep_timer = 0.0
 @export var mouse_sens = 0.2
 @export var lerp_speed = 10.0
 
+#Identity
+var identity = "Player"
+
 #Types of movement
 var walking = false
 var sprinting = false
