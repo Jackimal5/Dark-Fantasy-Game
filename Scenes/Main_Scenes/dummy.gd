@@ -17,8 +17,8 @@ var identity = "Dummy"
 
 func _physics_process(delta):
 	if knockback and knockback_timer > 0:
-		var k_velocity_x = (self.position.z - player_position.z)
-		var k_velocity_z = (self.position.x - player_position.x)
+		var k_velocity_x = (global_transform.origin.x - player_position.x)
+		var k_velocity_z = (global_transform.origin.z - player_position.z)
 		velocity = Vector3(k_velocity_x, 0.0, k_velocity_z).normalized() * knockback_multiplier
 		knockback_timer -= delta 
 		
