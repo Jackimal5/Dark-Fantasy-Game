@@ -4,7 +4,7 @@ extends CharacterBody3D
 var knockback = false
 var player_position = Vector3.ZERO
 var knockback_timer = 0
-@export var knockback_multiplier = 10
+@export var knockback_multiplier = 13
 @export var lerp_speed = 0.15
 @export var gravity = 9.8
 
@@ -17,10 +17,11 @@ var identity = "Dummy"
 
 func _physics_process(delta):
 	if knockback and knockback_timer > 0:
-		velocity.z = (self.position.z - player_position.z) * knockback_multiplier
-		velocity.x = (self.position.x - player_position.x) * knockback_multiplier
+		var k_velocity_x = (self.position.z - player_position.z)
+		var k_velocity_z = (self.position.x - player_position.x)
+		velocity = Vector3(k_velocity_x, 0.0, k_velocity_z).normalized() * knockback_multiplier
 		knockback_timer -= delta 
-	
+		
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
