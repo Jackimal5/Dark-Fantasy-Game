@@ -27,7 +27,6 @@ func _process(_delta):
 	choice()
 	interacting_check()
 	interaction_ui_check()
-	interacting_npc_check()
 	health_process()
 
 #Changes health 
@@ -49,10 +48,15 @@ func health_process():
 
 #Interaction display
 func interaction_ui_check():
-	if able_interactions:
+	if interacting_text() != "EXIT" and able_interactions:
 		interaction.show()
 	else:
 		interaction.hide()
+	
+	if interacting_text() != "EXIT" and interacting and able_interactions:
+		interacting_npc.show()
+	else:
+		interacting_npc.hide()
 
 #Interacts with NPC
 func interacting_check():
@@ -69,13 +73,6 @@ func able_to_interact_interactions():
 		able_interactions = true
 	else: 
 		able_interactions = false
-
-#Checks if you choose to interact with NPC and changes the UI occordingly 
-func interacting_npc_check():
-	if interacting and able_interactions:
-		interacting_npc.show()
-	else:
-		interacting_npc.hide()
 
 #The spagheti that allows you to be shown interacting text
 func interacting_text():
