@@ -20,8 +20,9 @@ extends CharacterBody3D
 #Sounds
 @onready var your_footsteps = $"Your footsteps"
 
-#Cameras and viewpoints
+#Camera and UI
 @onready var first_person_camera_3d = $head/FirstPersonCamera3D
+@onready var ui = $head/FirstPersonCamera3D/UI
 
 #Variable for Moving
 var constant_speed = 0
@@ -154,16 +155,19 @@ func crouch(delta):
 	sprinting = false
 	crouching = true
 
+#Checks if their sprinting
 func is_sprinting():
 	if Input.is_action_pressed("sprint") and !crouching and moving() || wall_running:
 			#Speed is set to sprinting speed
 			constant_speed = sprinting_speed
 			sprinting = true
 
+#Applies Gravity
 func gravity_pull(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
+#Checks if jumping
 func is_jumping():
 	if Input.is_action_just_pressed("jump") and (is_on_floor() || wall_running):
 		#Accelerate forward
@@ -175,6 +179,7 @@ func is_jumping():
 			velocity.y = jump_velocity * 1.6
 			wall_jumping_timer = wall_jumping_time
 
+#Checks if wall jump
 func is_wall_jump(delta):
 	if wall_jumping:
 		velocity.x *= 0.9
@@ -190,6 +195,7 @@ func move(delta):
 		velocity.x = direction.x * constant_speed
 		velocity.z = direction.z * constant_speed
 
+#Checks if using Esc to free the mouse
 func free_mouse():
 	if Input.is_action_pressed("free_mouse"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -252,6 +258,8 @@ func stand(delta):
 	#Change Head Position
 	head.position.y = lerp(head.position.y, 1.8, delta * lerp_speed)
 
+#Checks if attacking
 func is_attacking():
 	if Input.is_action_just_pressed("attack") and ray_cast_attack.is_colliding():
 		ray_cast_attack.get_collider().damage_taken(12, global_position)
+		ui.sl += 5

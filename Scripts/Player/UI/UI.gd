@@ -17,7 +17,7 @@ extends CanvasLayer
 #Data:
 #Health Varible 
 var hp = 100
-var sl = 100
+var sl = -23
 
 #Shows press "E" to interact
 var able_interactions = false
