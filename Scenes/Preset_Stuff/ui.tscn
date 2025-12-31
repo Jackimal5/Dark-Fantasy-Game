@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjloa0b6fnii2"]
+[gd_scene load_steps=6 format=3 uid="uid://cjloa0b6fnii2"]
 
 [ext_resource type="Script" uid="uid://40rb8wdty7n6" path="res://Scripts/Player/UI/UI.gd" id="1_xu13l"]
 [ext_resource type="Texture2D" uid="uid://3tqwpjxshvx3" path="res://Assets/Art_2D/Crosshair.png" id="2_17c0q"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flmby"]
 bg_color = Color(0.767721, 0.133623, 1.92523e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17c0q"]
+bg_color = Color(1.44392e-06, 0.673641, 0.770242, 1)
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_xu13l")
@@ -16,6 +19,17 @@ offset_bottom = 91.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_flmby")
 step = 1.0
 value = 50.0
+show_percentage = false
+
+[node name="Soul" type="ProgressBar" parent="."]
+offset_top = 94.0
+offset_right = 439.0
+offset_bottom = 125.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_17c0q")
+step = 1.0
+value = 100.0
+allow_greater = true
+show_percentage = false
 
 [node name="Crosshair" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.486275)
