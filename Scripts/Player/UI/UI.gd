@@ -1,19 +1,23 @@
 extends CanvasLayer
 
 #Declaring Nodes
+#UI Bar Nodes
 @onready var health = $Health
+@onready var soul = $Soul
+#Other player nodes
 @onready var player = $"../../.."
 @onready var interaction = $Interaction
 @onready var you_need_help = $"../../../../Stage/You need help"
 @onready var interacting_npc = $Interacting_NPC
 @onready var interacting_npc_text = $Interacting_NPC/Interacting_NPC_Text
-
+#NPC Dialogue handler node
 @onready var scribe = $"../../../Scribe"
 
 
 #Data:
 #Health Varible 
 var hp = 100
+var sl = 100
 
 #Shows press "E" to interact
 var able_interactions = false
@@ -28,6 +32,7 @@ func _process(_delta):
 	interacting_check()
 	interaction_ui_check()
 	health_process()
+	soul_process()
 
 #Changes health 
 func lose_hp(health_lost):
@@ -45,6 +50,12 @@ func health_process():
 		you_need_help.respawn()
 	if hp > 100:
 		hp = 100
+
+#Process for Soul
+func soul_process():
+	soul.value = sl
+	if sl <= 0:
+		sl = 0
 
 #Interaction display
 func interaction_ui_check():
