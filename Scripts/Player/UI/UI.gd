@@ -91,7 +91,7 @@ func interacting_text():
 		return str(scribe.npc_dialogue(player.ray_cast_interactions.get_collider().id))
 
 func choice():
-	if interacting and input_choice():
+	if interacting and input_choice() and interacting_text() != "EXIT":
 		if Input.is_action_just_pressed("Choice 1"):
 			interacting_npc_text.text = choice_text(1)
 		elif Input.is_action_just_pressed("Choice 2"):
