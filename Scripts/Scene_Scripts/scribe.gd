@@ -4,7 +4,7 @@ extends Node
 @onready var ui = $"../head/FirstPersonCamera3D/UI"
 
 var dialogue_data = {
-	10 : "Hello \n1. Bye \n2.Do you have any quests?",
+	10 : "Hello \n1. Bye \n 2.Do you have any quests?",
 	11 : "No, but you can go hit the dummy over their \n1. Okay thanks \n2. Your stupid",
 	12 : "...",
 	0 : "EXIT",
