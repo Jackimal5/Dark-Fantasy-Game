@@ -174,10 +174,21 @@ func is_jumping():
 		if is_on_floor():
 			velocity.y = jump_velocity
 		if wall_running:
-			wall_jumping = true
-			velocity = get_wall_normal() * 14
-			velocity.y = jump_velocity * 1.6
-			wall_jumping_timer = wall_jumping_time
+			start_wall_jump()
+
+func start_wall_jump():
+	if soul_enough(9):
+		wall_jumping = true
+		velocity = get_wall_normal() * 14
+		velocity.y = jump_velocity * 1.6
+		wall_jumping_timer = wall_jumping_time
+		ui.sl -= 9
+
+func soul_enough(amount):
+	if ui.sl - amount < 0:
+		return false
+	else:
+		return true
 
 #Checks if wall jump
 func is_wall_jump(delta):
