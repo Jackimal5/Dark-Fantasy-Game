@@ -59,6 +59,10 @@ var footstep_timer = 0.0
 #Identity
 var identity = "Player"
 
+#Blast Jump stuff
+var soul_blast_jumping = false
+@export var soul_blast_soul_loss_amp = 13.0
+
 #Types of movement
 var walking = false
 var sprinting = false
@@ -116,6 +120,8 @@ func _physics_process(delta):
 	gravity_pull(delta)
 	#Handles movement on X and Z
 	move(delta)
+	#Checks for soul blast jump
+	is_blast_jump(delta)
 	#Handles jumping
 	is_jumping()
 	#Checks if your wall jumping or not to determine stuff 
@@ -169,13 +175,28 @@ func gravity_pull(delta):
 
 #Checks if jumping
 func is_jumping():
-	if Input.is_action_just_pressed("jump") and (is_on_floor() || wall_running):
+	if (Input.is_action_just_pressed("jump") and (is_on_floor() || wall_running)):
 		#Accelerate forward
-		if is_on_floor():
+		if is_on_floor() and Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
 		if wall_running:
 			start_wall_jump()
+		
 
+#Blast Jump
+func is_blast_jump(delta):
+	if Input.is_action_just_pressed("Soul Blast Jump"):
+		if soul_enough(4):
+			soul_blast_jumping = true
+			ui.sl -= 4
+	elif Input.is_action_pressed("Soul Blast Jump"):
+		if soul_enough(delta * soul_blast_soul_loss_amp):
+			ui.sl -= delta * soul_blast_soul_loss_amp
+			soul_blast_jumping = true
+	else:
+		soul_blast_jumping = false
+
+#Code for wall jumping
 func start_wall_jump():
 	if soul_enough(9):
 		wall_jumping = true
@@ -184,6 +205,7 @@ func start_wall_jump():
 		wall_jumping_timer = wall_jumping_time
 		ui.sl -= 9
 
+#Check if you have enough soul to perform a certain action
 func soul_enough(amount):
 	if ui.sl - amount < 0:
 		return false
