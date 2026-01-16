@@ -224,8 +224,8 @@ func is_soul_quick_dash():
 	soul_quick_dash = false
 	if moveset["soul_quick_dash"] == true:
 		if Input.is_action_just_pressed("Soul Quick Dash") and input_dir != Vector2.ZERO:
-			if soul_enough(8):
-				ui.sl -= 8 
+			if soul_enough(23):
+				ui.sl -= 23
 				soul_quick_dash = true
 	
 
