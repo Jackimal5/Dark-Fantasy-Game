@@ -62,6 +62,8 @@ var identity = "Player"
 #Blast Jump stuff
 var soul_blast_jumping = false
 @export var soul_blast_soul_loss_amp = 13.0
+@export var soul_blast_jump_velocity = 5
+@export var soul_blast_jump_velocity_intial = 7
 
 #Types of movement
 var walking = false
@@ -179,7 +181,7 @@ func is_jumping():
 		#Accelerate forward
 		if is_on_floor() and Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
-		if wall_running:
+		elif wall_running:
 			start_wall_jump()
 		
 
@@ -195,6 +197,11 @@ func is_blast_jump(delta):
 			soul_blast_jumping = true
 	else:
 		soul_blast_jumping = false
+	
+	if soul_blast_jumping and Input.is_action_just_pressed("Soul Blast Jump"):
+		velocity.y = soul_blast_jump_velocity_intial
+	elif soul_blast_jumping and Input.is_action_pressed("Soul Blast Jump"):
+		velocity.y = soul_blast_jump_velocity
 
 #Code for wall jumping
 func start_wall_jump():
