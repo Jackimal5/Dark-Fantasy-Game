@@ -67,6 +67,10 @@ var soul_blast_timer = 0.0
 @export var soul_blast_jump_velocity = 5
 @export var soul_blast_jump_velocity_intial = 7
 
+#Soul quick dash stuff
+var soul_quick_dash = false
+@export var soul_quick_dash_amp = 40
+
 #Types of movement
 var walking = false
 var sprinting = false
@@ -81,7 +85,8 @@ var input_dir = Input.get_vector("left", "right", "forward", "backward")
 
 #Moveset
 @export var moveset = {
-	"soul_blast_jump" : false
+	"soul_blast_jump" : false,
+	"soul_quick_dash" : true
 }
 
 #Used to Capture Mouse
@@ -111,12 +116,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("crouch") and is_on_floor():
 		#Crouch script
 		crouch(delta)
-		
 	#If you aren't pressing crouch and are able to stand up
 	elif !ray_cast.is_colliding() and is_on_floor():
 		#Standing Script
 		stand(delta)
-	
 	#Checks if the player is attacking and attacks if so
 	is_attacking()
 	#If sprinting
@@ -131,13 +134,14 @@ func _physics_process(delta):
 	move(delta)
 	#Checks for soul blast jump
 	is_blast_jump(delta)
+	#Checks for quick dash
+	is_soul_quick_dash()
 	#Handles jumping
 	is_jumping()
 	#Checks if your wall jumping or not to determine stuff 
 	is_wall_jump(delta)
 	#Makes all things move
 	move_and_slide()
-	
 
 #Rotates Head
 func head_rotation(event):
@@ -215,6 +219,16 @@ func is_blast_jump(delta):
 			soul_blast_timer -= delta
 			ui.sl -= delta * soul_blast_soul_loss_amp
 
+#Soul Quick Dash
+func is_soul_quick_dash():
+	soul_quick_dash = false
+	if moveset["soul_quick_dash"] == true:
+		if Input.is_action_just_pressed("Soul Quick Dash") and input_dir != Vector2.ZERO:
+			if soul_enough(8):
+				ui.sl -= 8 
+				soul_quick_dash = true
+	
+
 #Code for wall jumping
 func start_wall_jump():
 	if soul_enough(9):
@@ -243,9 +257,12 @@ func is_wall_jump(delta):
 
 func move(delta):
 	direction = lerp(direction,(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(),delta * lerp_speed)
-	if direction != Vector3.ZERO and !wall_jumping:
+	if direction != Vector3.ZERO and !wall_jumping and !soul_quick_dash:
 		velocity.x = direction.x * constant_speed
 		velocity.z = direction.z * constant_speed
+	elif direction != Vector3.ZERO and !wall_jumping and soul_quick_dash:
+		velocity.x = direction.x * constant_speed * soul_quick_dash_amp
+		velocity.z = direction.z * constant_speed * soul_quick_dash_amp
 
 #Checks if using Esc to free the mouse
 func free_mouse():
