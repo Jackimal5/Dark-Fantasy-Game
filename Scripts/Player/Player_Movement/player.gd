@@ -85,7 +85,7 @@ var input_dir = Input.get_vector("left", "right", "forward", "backward")
 
 #Moveset
 @export var moveset = {
-	"soul_blast_jump" : false,
+	"soul_blast_jump" : true,
 	"soul_quick_dash" : true
 }
 
@@ -227,7 +227,6 @@ func is_soul_quick_dash():
 			if soul_enough(23):
 				ui.sl -= 23
 				soul_quick_dash = true
-	
 
 #Code for wall jumping
 func start_wall_jump():
