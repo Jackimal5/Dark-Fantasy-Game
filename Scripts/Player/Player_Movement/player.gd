@@ -61,6 +61,8 @@ var identity = "Player"
 
 #Blast Jump stuff
 var soul_blast_jumping = false
+var soul_blast_timer = 0.0
+@export var soul_blast_timer_max = 1.0
 @export var soul_blast_soul_loss_amp = 13.0
 @export var soul_blast_jump_velocity = 5
 @export var soul_blast_jump_velocity_intial = 7
@@ -76,6 +78,11 @@ var wall_jumping = false
 var set_camera = 1
 var the_slope = 0
 var input_dir = Input.get_vector("left", "right", "forward", "backward")
+
+#Moveset
+@export var moveset = {
+	"soul_blast_jump" : false
+}
 
 #Used to Capture Mouse
 func _ready():
@@ -183,25 +190,30 @@ func is_jumping():
 			velocity.y = jump_velocity
 		elif wall_running:
 			start_wall_jump()
-		
 
 #Blast Jump
 func is_blast_jump(delta):
-	if Input.is_action_just_pressed("Soul Blast Jump"):
-		if soul_enough(4):
-			soul_blast_jumping = true
+	if is_on_floor():
+		soul_blast_timer = soul_blast_timer_max
+	if moveset["soul_blast_jump"] == true:
+		if Input.is_action_just_pressed("Soul Blast Jump"):
+			if soul_enough(4):
+				soul_blast_jumping = true
+		elif Input.is_action_pressed("Soul Blast Jump"):
+			if soul_enough(delta * soul_blast_soul_loss_amp):
+				soul_blast_jumping = true
+		else:
+			soul_blast_jumping = false
+		if soul_blast_jumping and soul_blast_timer <= 0:
+			soul_blast_jumping = false
+		if soul_blast_jumping and Input.is_action_just_pressed("Soul Blast Jump"):
+			velocity.y = soul_blast_jump_velocity_intial
+			soul_blast_timer -= delta
 			ui.sl -= 4
-	elif Input.is_action_pressed("Soul Blast Jump"):
-		if soul_enough(delta * soul_blast_soul_loss_amp):
+		elif soul_blast_jumping and Input.is_action_pressed("Soul Blast Jump"):
+			velocity.y = soul_blast_jump_velocity
+			soul_blast_timer -= delta
 			ui.sl -= delta * soul_blast_soul_loss_amp
-			soul_blast_jumping = true
-	else:
-		soul_blast_jumping = false
-	
-	if soul_blast_jumping and Input.is_action_just_pressed("Soul Blast Jump"):
-		velocity.y = soul_blast_jump_velocity_intial
-	elif soul_blast_jumping and Input.is_action_pressed("Soul Blast Jump"):
-		velocity.y = soul_blast_jump_velocity
 
 #Code for wall jumping
 func start_wall_jump():
