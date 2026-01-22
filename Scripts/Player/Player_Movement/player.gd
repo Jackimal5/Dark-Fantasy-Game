@@ -122,10 +122,8 @@ func _physics_process(delta):
 		stand(delta)
 	#Checks if the player is attacking and attacks if so
 	is_attacking()
-	#If sprinting
-	is_sprinting()
-	#If walking
-	is_walking()
+	#If sprinting or walking
+	is_sprinting_or_walking()
 	#If not moving
 	is_not_moving()
 	#Adding Gravity
@@ -133,9 +131,9 @@ func _physics_process(delta):
 	#Handles movement on X and Z
 	move(delta)
 	#Checks for soul blast jump
-	is_blast_jump(delta)
+	#is_blast_jump(delta)
 	#Checks for quick dash
-	is_soul_quick_dash()
+	#is_soul_quick_dash()
 	#Handles jumping
 	is_jumping()
 	#Checks if your wall jumping or not to determine stuff 
@@ -156,12 +154,6 @@ func is_not_moving():
 		walking = false
 		crouching = false
 
-func is_walking():
-	if moving() and !sprinting and !crouching:
-		#Speed is set to walking speed
-		constant_speed = walk_speed
-		walking = true
-
 func crouch(delta):
 	#Speed is set to crouching speed
 	constant_speed = crouching_speed
@@ -174,12 +166,16 @@ func crouch(delta):
 	sprinting = false
 	crouching = true
 
-#Checks if their sprinting
-func is_sprinting():
+#Checks if their sprinting or walking
+func is_sprinting_or_walking():
 	if Input.is_action_pressed("sprint") and !crouching and moving() || wall_running:
 			#Speed is set to sprinting speed
 			constant_speed = sprinting_speed
 			sprinting = true
+	elif moving() and !crouching:
+		#Speed is set to walking speed
+		constant_speed = walk_speed
+		walking = true
 
 #Applies Gravity
 func gravity_pull(delta):
@@ -230,19 +226,20 @@ func is_soul_quick_dash():
 
 #Code for wall jumping
 func start_wall_jump():
-	if soul_enough(9):
-		wall_jumping = true
-		velocity = get_wall_normal() * 14
-		velocity.y = jump_velocity * 1.6
-		wall_jumping_timer = wall_jumping_time
-		ui.sl -= 9
+#	if soul_enough(9):
+	wall_jumping = true
+	velocity = get_wall_normal() * 14
+	velocity.y = jump_velocity * 1.6
+	wall_jumping_timer = wall_jumping_time
+#		ui.sl -= 9
 
 #Check if you have enough soul to perform a certain action
 func soul_enough(amount):
-	if ui.sl - amount < 0:
-		return false
-	else:
-		return true
+#	if ui.sl - amount < 0:
+#		return false
+#	else:
+#		return true
+	return
 
 #Checks if wall jump
 func is_wall_jump(delta):

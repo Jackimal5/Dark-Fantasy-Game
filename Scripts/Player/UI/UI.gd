@@ -17,7 +17,7 @@ extends CanvasLayer
 #Data:
 #Health Varible 
 var hp = 100
-var sl = 100
+#var sl = 100
 
 #Shows press "E" to interact
 var able_interactions = false
@@ -32,7 +32,7 @@ func _process(_delta):
 	interacting_check()
 	interaction_ui_check()
 	health_process()
-	soul_process()
+	#soul_process()
 
 #Changes health 
 func lose_hp(health_lost):
@@ -52,10 +52,10 @@ func health_process():
 		hp = 100
 
 #Process for Soul
-func soul_process():
-	soul.value = sl
-	if sl <= 0:
-		sl = 0
+#func soul_process():
+#	soul.value = sl
+#	if sl <= 0:
+#		sl = 0
 
 #Interaction display
 func interaction_ui_check():

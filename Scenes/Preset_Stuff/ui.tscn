@@ -24,6 +24,7 @@ value = 50.0
 show_percentage = false
 
 [node name="Soul" type="ProgressBar" parent="."]
+visible = false
 offset_left = 9.0
 offset_top = 107.0
 offset_right = 448.0
