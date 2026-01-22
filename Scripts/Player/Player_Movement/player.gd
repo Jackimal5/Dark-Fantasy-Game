@@ -174,14 +174,15 @@ func crouch(delta):
 
 #Checks if their sprinting or walking
 func is_sprinting_or_walking():
-	if Input.is_action_pressed("sprint") and !crouching and moving() || wall_running:
-			#Speed is set to sprinting speed
-			constant_speed = sprinting_speed
-			sprinting = true
-	elif moving() and !crouching:
-		#Speed is set to walking speed
-		constant_speed = walk_speed
-		walking = true
+	if is_on_floor():
+		if Input.is_action_pressed("sprint") and !crouching and moving() || wall_running:
+				#Speed is set to sprinting speed
+				constant_speed = sprinting_speed
+				sprinting = true
+		elif moving() and !crouching:
+			#Speed is set to walking speed
+			constant_speed = walk_speed
+			walking = true
 
 #Applies Gravity
 func gravity_pull(delta):
@@ -232,12 +233,10 @@ func is_soul_quick_dash():
 
 #Code for wall jumping
 func start_wall_jump():
-#	if soul_enough(9):
 	wall_jumping = true
 	velocity = get_wall_normal() * 14
 	velocity.y = jump_velocity * 1.6
 	wall_jumping_timer = wall_jumping_time
-#		ui.sl -= 9
 
 #Check if you have enough soul to perform a certain action
 func soul_enough(amount):
@@ -333,4 +332,3 @@ func stand(delta):
 func is_attacking():
 	if Input.is_action_just_pressed("attack") and ray_cast_attack.is_colliding():
 		ray_cast_attack.get_collider().damage_taken(12, global_position)
-		ui.sl += 5
