@@ -40,7 +40,7 @@ var footstep_timer = 0.0
 
 #Sprinting
 @export var sprinting_speed = 8.0
-
+ 
 #Jumping and Falling
 @export var jump_velocity = 5
 @export var wall_jumping_time = 0.38

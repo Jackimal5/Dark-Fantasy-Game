@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://txlml75bby3c"]
+[gd_scene load_steps=9 format=3 uid="uid://txlml75bby3c"]
 
 [ext_resource type="Script" uid="uid://kyfsrdm01e78" path="res://Scripts/Player/Player_Movement/player.gd" id="1_g8ua4"]
 [ext_resource type="Script" uid="uid://bgfh65f2f47yy" path="res://Scripts/Scene_Scripts/scribe.gd" id="2_6jd4p"]
 [ext_resource type="AudioStream" uid="uid://b6hm5uyy8o1wl" path="res://Assets/Audio/Footstep.mp3" id="2_tpuda"]
 [ext_resource type="Script" uid="uid://10v411wc6wrf" path="res://Scripts/Player/Sound_Effects/Your footsteps.gd" id="3_wkglc"]
 [ext_resource type="PackedScene" uid="uid://cjloa0b6fnii2" path="res://Scenes/Preset_Stuff/ui.tscn" id="4_xtk1p"]
+[ext_resource type="PackedScene" uid="uid://w552lujgy4gq" path="res://Assets/Art_3D/Weapons for Itch with image texture.fbx_Arming_Sword.fbx" id="6_vdp5t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lbdua"]
 
@@ -69,3 +70,6 @@ collision_mask = 16
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0232329, -0.0676738, 0.00383997)
 target_position = Vector3(0, 0, -2)
 collision_mask = 4
+
+[node name="Sword_Model" parent="head/FirstPersonCamera3D" instance=ExtResource("6_vdp5t")]
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, 0.496326, -0.253377, -0.570781)
