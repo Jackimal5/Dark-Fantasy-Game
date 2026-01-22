@@ -113,13 +113,7 @@ func _physics_process(delta):
 	#Set Camera
 	camera_set()
 	#Crouching and Standing Logic 
-	if Input.is_action_pressed("crouch") and is_on_floor():
-		#Crouch script
-		crouch(delta)
-	#If you aren't pressing crouch and are able to stand up
-	elif !ray_cast.is_colliding() and is_on_floor():
-		#Standing Script
-		stand(delta)
+	crouch_stand_logic(delta)
 	#Checks if the player is attacking and attacks if so
 	is_attacking()
 	#If sprinting or walking
@@ -141,6 +135,16 @@ func _physics_process(delta):
 	#Makes all things move
 	move_and_slide()
 
+#Crouch and Stand Logic
+func crouch_stand_logic(delta):
+	if Input.is_action_pressed("crouch") and is_on_floor():
+		#Crouch script
+		crouch(delta)
+	#If you aren't pressing crouch and are able to stand up
+	elif !ray_cast.is_colliding() and is_on_floor():
+		#Standing Script
+		stand(delta)
+
 #Rotates Head
 func head_rotation(event):
 	if event is InputEventMouseMotion:
@@ -148,12 +152,14 @@ func head_rotation(event):
 		head.rotate_x(deg_to_rad(event.relative.y * mouse_sens * -1))
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 
+#Deacceleration 
 func is_not_moving():
 	if !moving():
 		sprinting = false
 		walking = false
 		crouching = false
 
+#Crouch Logic
 func crouch(delta):
 	#Speed is set to crouching speed
 	constant_speed = crouching_speed
