@@ -137,7 +137,7 @@ func _physics_process(delta):
 
 #Crouch and Stand Logic
 func crouch_stand_logic(delta):
-	if Input.is_action_pressed("crouch") and is_on_floor():
+	if Input.is_action_pressed("crouch") and is_on_floor() or crouching:
 		#Crouch script
 		crouch(delta)
 	#If you aren't pressing crouch and are able to stand up
